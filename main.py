@@ -73,6 +73,8 @@ def main():
     from inference.prediction import predict_drumhit
     import librosa
 
+    cwd = os.getcwd()
+
     if args.link!=None:
         print(f'Downloading audio track from {args.link}')
         f_path = get_yt_audio(args.link)
@@ -83,6 +85,7 @@ def main():
     
     print('Start Demixing Process...')
     drum_track, sample_rate = drum_extraction(f_path,
+                                              dir=cwd,
                                               kernel=args.kernal,
                                               mode=args.kernel_mode)
 
@@ -94,11 +97,11 @@ def main():
                             estimated_bpm=args.bpm,
                             resolution=args.resolution)
 
-    df_pred=predict_drumhit('inference/pretrained_models/annoteators/complete_network.h5', df, sample_rate)
+    df_pred=predict_drumhit(os.path.join(cwd, "inference", "pretrained_models", "annoteators", "complete_network.h5"), df, sample_rate)
 
     print('Creating sheet music...')
 
-    song_duration = librosa.get_duration(drum_track, sr=sample_rate)
+    song_duration = librosa.get_duration(y=drum_track, sr=sample_rate)
 
     sheet_music = drum_transcriber(df_pred,
                                     song_duration,
