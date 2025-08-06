@@ -50,7 +50,7 @@ def main():
                                 "This number represent the number of beats in each measure.")
 
     parser.add_argument('-fmt', '--format',
-                        default='pdf',
+                        default='musicxml',
                         choices=['pdf', 'musicxml'],
                         type=str,
                         help='Output sheet music format')
