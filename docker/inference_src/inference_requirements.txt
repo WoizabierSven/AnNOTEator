@@ -7,7 +7,7 @@ music21
 numpy
 pandas
 pedalboard
-pytube
-sklearn
+pytubefix
+scikit-learn
 tqdm
 tensorflow
